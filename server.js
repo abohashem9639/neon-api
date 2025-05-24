@@ -1,6 +1,7 @@
 const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
+const bcrypt = require("bcrypt");  // استيراد bcrypt هنا في الأعلى
 
 const app = express(); // ← تعريف app هنا
 app.use(cors());
@@ -67,8 +68,6 @@ app.post("/login", async (req, res) => {
 
     const user = userResult.rows[0];
     
-    // تحقق من كلمة المرور (افترض أن كلمات المرور مخزنة مشفرة باستخدام bcrypt)
-    const bcrypt = require("bcrypt");
     const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) {
